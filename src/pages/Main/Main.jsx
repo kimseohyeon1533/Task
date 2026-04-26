@@ -9,10 +9,10 @@ import sortIcon from "../../assets/icons/icon_2.png";
 import vectorIcon from "../../assets/icons/Vector.png"; // 🔥 추가
 
 const MainContainer = styled.div`
-    padding: 40px 160px;
+    padding: 40px 158px;
+    box-sizing: border-box;
 `;
 
-/* 🔹 필터 + 정렬 */
 const FilterRow = styled.div`
     display: flex;
     justify-content: space-between;
@@ -25,44 +25,42 @@ const FilterLeft = styled.div`
     gap: 12px;
 `;
 
-/* 🔥 버튼 안에 아이콘까지 포함 */
 const FilterButton = styled.button`
     display: flex;
+    padding: 8px 10px 11px 10px;
+    justify-content: center;
     align-items: center;
-    gap: 6px;
-
-    padding: 8px 14px;
-    border: 1px solid #ddd;
+    gap: 5px;
+    aspect-ratio: 58 / 33;
     border-radius: 20px;
-    background: #fff;
+    background: #F2F2F2;
+    border: none;
     font-size: 13px;
-    color: #333;
+    color: #616161;
     cursor: pointer;
 
     &:hover {
-        background: #f5f5f5;
+        background: #e8e8e8;
     }
 `;
 
-/* 🔹 버튼 안 아이콘 */
+
+
 const VectorIcon = styled.img`
     width: 10px;
     height: 5px;
 `;
 
-/* 🔹 정렬 */
-
 const SortText = styled.div`
     font-size: 13px;
-    color: #666;
+    color: #616161;
 `;
 
 const SortIcon = styled.img`
-    width: 18px;
-    height: 18px;
+    width: 10px;
+    height: 11px;
 `;
 
-/* 🔥 정렬 드롭다운 추가 스타일 */
 const SortDropdown = styled.div`
     position: absolute;
     top: calc(100% + 8px);
@@ -81,7 +79,7 @@ const SortOption = styled.div`
     justify-content: space-between;
     padding: 10px 20px;
     font-size: 13px;
-    color: ${({ $active }) => ($active ? "#111" : "#666")};
+    color: ${({ $active }) => ($active ? "#333333" : "#AFAFAF")};
     font-weight: ${({ $active }) => ($active ? "600" : "400")};
     cursor: pointer;
 
@@ -90,7 +88,6 @@ const SortOption = styled.div`
     }
 `;
 
-/* 🔥 정렬 우측 래퍼 */
 const SortRight = styled.div`
     display: flex;
     align-items: center;
@@ -99,17 +96,15 @@ const SortRight = styled.div`
     position: relative;
 `;
 
-/* 🔹 상품 */
 const ProductGrid = styled.div`
     display: grid;
     grid-template-columns: repeat(5, 1fr);
-    gap: 5px;
+    gap: 15px;
 `;
 
 const ProductCard = styled.div`
     display: flex;
     flex-direction: column;
-    border: 1px solid #eee;
     border-radius: 12px;
     overflow: hidden;
     background: #fff;
@@ -127,8 +122,8 @@ const ProductInfo = styled.div`
 
 const ProductName = styled.div`
     font-size: 11px;
-    color: #222;
-`;
+    color: #333333
+`;;
 
 const ProductPrice = styled.div`
     margin-top: 4px;
@@ -140,10 +135,9 @@ const ProductPrice = styled.div`
 const ProductSub = styled.div`
     margin-top: 2px;
     font-size: 11px;
-    color: #999;
+    color: #A7A7A7;
 `;
 
-/* 🔥 모달 추가 스타일 */
 const Overlay = styled.div`
     position: fixed;
     inset: 0;
@@ -188,46 +182,64 @@ const OptionRow = styled.div`
     gap: 10px;
 `;
 
-const OptionChip = styled.button`
-    padding: 8px 18px;
+const ColorOptionRow = styled.div`
+    display: grid;
+    grid-template-columns: max-content max-content max-content;
+    gap: 10px;
+`;
+
+const ColorChip = styled.button`
+    padding: 6px 14px;
     border-radius: 20px;
-    border: 1px solid #ddd;
-    background: #fff;
+    border: none;
+    background: #F2F2F2;
     font-size: 14px;
     color: #333;
     cursor: pointer;
 
     &:hover {
-        background: #f5f5f5;
+        background: #e8e8e8;
     }
 `;
 
-/* 🔥 모달 컨텐츠 정의 */
+const OptionChip = styled.button`
+    padding: 8px 18px;
+    border-radius: 20px;
+    border: none;
+    background: #F2F2F2;
+    font-size: 14px;
+    color: #333;
+    cursor: pointer;
+    text-align: center;
+
+    &:hover {
+        background: #e8e8e8;
+    }
+`;
+
 const filterOptions = {
-    성별: ["female", "male", "unisex"],
+    성별: ["남성", "여성", "남녀공용"],
     색상: ["red", "pink", "blue", "black", "gray", "denim", "rainbow", "multi", "holographic"],
     사이즈: ["9", "10", "S", "M", "L", "XL"],
-    가격대: ["0~30$", "31~60$", "61~90$"],
-    종류: ["clothes", "shoes"],
+    가격대: ["0~30", "31~60", "61~90"],
+    종류: ["옷", "신발"],
 };
 
 export default function Main() {
     const items = [
-        { id: 1, name: "상품1", price: "145,000원", sub: "리뷰 1,561", image: imageUrl1 },
-        { id: 2, name: "상품2", price: "145,000원", sub: "리뷰 1,732", image: imageUrl2 },
-        { id: 3, name: "상품3", price: "255,000원", sub: "리뷰 781", image: imageUrl3 },
-        { id: 4, name: "상품4", price: "458,000원", sub: "리뷰 2,567", image: imageUrl4 },
-        { id: 5, name: "상품5", price: "235,000원", sub: "리뷰 231", image: imageUrl5 },
-        { id: 6, name: "상품6", price: "199,000원", sub: "리뷰 980", image: imageUrl1 },
-        { id: 7, name: "상품7", price: "210,000원", sub: "리뷰 640", image: imageUrl2 },
-        { id: 8, name: "상품8", price: "175,000원", sub: "리뷰 312", image: imageUrl3 },
-        { id: 9, name: "상품9", price: "480,000원", sub: "리뷰 1,102", image: imageUrl4 },
-        { id: 10, name: "상품10", price: "260,000원", sub: "리뷰 540", image: imageUrl5 }
+        { id: 1, name: "아이앱 스튜디오 25 후드 라이트 그레이", price: "145,000원", sub: "리뷰 1,561", image: imageUrl1 },
+        { id: 2, name: "아이앱 스튜디오 25 후드 라이트 블루", price: "145,000원", sub: "리뷰 1,732", image: imageUrl2 },
+        { id: 3, name: "아디다스 블랙 져지 2016", price: "255,000원", sub: "리뷰 781", image: imageUrl3 },
+        { id: 4, name: "슈프림 후드집업 30 딥블루", price: "458,000원", sub: "리뷰 2,567", image: imageUrl4 },
+        { id: 5, name: "나이키 에어 그레이 하운드 25", price: "235,000원", sub: "리뷰 231", image: imageUrl5 },
+        { id: 6, name: "아이앱 스튜디오 25 후드 라이트 그레이", price: "199,000원", sub: "리뷰 980", image: imageUrl1 },
+        { id: 7, name: "아이앱 스튜디오 25 후드 라이트 블루", price: "210,000원", sub: "리뷰 640", image: imageUrl2 },
+        { id: 8, name: "아디다스 블랙 져지 2016", price: "175,000원", sub: "리뷰 312", image: imageUrl3 },
+        { id: 9, name: "슈프림 후드집업 30 딥블루", price: "480,000원", sub: "리뷰 1,102", image: imageUrl4 },
+        { id: 10, name: "나이키 에어 그레이 하운드 25", price: "260,000원", sub: "리뷰 540", image: imageUrl5 }
     ];
 
-    // 🔥 모달 상태
     const [activeFilter, setActiveFilter] = useState(null);
-    // 🔥 정렬 드롭다운 상태
     const [sortOpen, setSortOpen] = useState(false);
     const [selectedSort, setSelectedSort] = useState("기본 정렬순");
 
@@ -244,7 +256,6 @@ export default function Main() {
     return (
         <MainContainer onClick={() => setSortOpen(false)}>
 
-            {/* 🔹 필터 + 정렬 */}
             <FilterRow>
                 <FilterLeft>
                     <FilterButton onClick={() => openModal("성별")}>
@@ -264,7 +275,6 @@ export default function Main() {
                     </FilterButton>
                 </FilterLeft>
 
-                {/* 🔥 정렬 드롭다운 */}
                 <SortRight onClick={(e) => { e.stopPropagation(); setSortOpen((prev) => !prev); }}>
                     <SortText>{selectedSort}</SortText>
                     <SortIcon src={sortIcon} />
@@ -299,20 +309,52 @@ export default function Main() {
                 ))}
             </ProductGrid>
 
-            {/* 🔥 필터 모달 */}
             {activeFilter && (
-                <Overlay onClick={closeModal}>
-                    <Modal onClick={(e) => e.stopPropagation()}>
-                        <ModalTitle>{activeFilter}</ModalTitle>
-                        <CloseButton onClick={closeModal}>✕</CloseButton>
-                        <OptionRow>
-                            {filterOptions[activeFilter].map((option) => (
-                                <OptionChip key={option}>{option}</OptionChip>
-                            ))}
-                        </OptionRow>
-                    </Modal>
-                </Overlay>
+    <Overlay onClick={closeModal}>
+        <Modal onClick={(e) => e.stopPropagation()}>
+            <ModalTitle>{activeFilter}</ModalTitle>
+            <CloseButton onClick={closeModal}>✕</CloseButton>
+            {activeFilter === "색상" ? (
+    <div style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
+    <div style={{ display: "flex", gap: "8px" }}>
+            <ColorChip>red</ColorChip>
+            <ColorChip>pink</ColorChip>
+            <ColorChip>blue</ColorChip>
+        </div>
+        <div style={{ display: "flex", gap: "10px" }}>
+            <ColorChip>black</ColorChip>
+            <ColorChip>gray</ColorChip>
+            <ColorChip>denim</ColorChip>
+        </div>
+        <div style={{ display: "flex", gap: "10px" }}>
+            <ColorChip>rainbow</ColorChip>
+            <ColorChip>multi</ColorChip>
+            <ColorChip>holographic</ColorChip>
+        </div>
+    </div>
+            ) : activeFilter === "사이즈" ? (
+                <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
+                    <div style={{ display: "flex", gap: "10px" }}>
+                        <OptionChip>9</OptionChip>
+                        <OptionChip>10</OptionChip>
+                    </div>
+                    <div style={{ display: "flex", gap: "10px" }}>
+                        <OptionChip>S</OptionChip>
+                        <OptionChip>M</OptionChip>
+                        <OptionChip>L</OptionChip>
+                        <OptionChip>XL</OptionChip>
+                    </div>
+                </div>
+            ) : (
+                <OptionRow>
+                    {filterOptions[activeFilter].map((option) => (
+                        <OptionChip key={option}>{option}</OptionChip>
+                    ))}
+                </OptionRow>
             )}
+        </Modal>
+    </Overlay>
+)}
 
         </MainContainer>
     );

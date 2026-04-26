@@ -24,7 +24,9 @@ const HeaderRight = styled.div`
     display: flex;
     flex-direction: column;
     align-items: flex-end;
-    gap: 5px;
+    gap: 36px;
+    padding-top: 9px;
+    padding-bottom: 58px;
 `;
 
 const Button = styled.div`
@@ -32,7 +34,6 @@ const Button = styled.div`
     font-size: 13px;
     font-family: Pretendard;
     font-weight: 400;
-    margin-top: 9px;
 `;
 
 export default function Header(){
