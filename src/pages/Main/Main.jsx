@@ -1,12 +1,9 @@
 import { useState } from "react";
 import styled from "styled-components";
-import imageUrl1 from "../../assets/images/image 2.png";
-import imageUrl2 from "../../assets/images/image 4.png";
-import imageUrl3 from "../../assets/images/image 5.png";
-import imageUrl4 from "../../assets/images/image 6.png";
-import imageUrl5 from "../../assets/images/image 7.png";
 import sortIcon from "../../assets/icons/icon_2.png";
-import vectorIcon from "../../assets/icons/Vector.png"; // 🔥 추가
+import vectorIcon from "../../assets/icons/Vector.png"; 
+import {useNavigate} from "react-router-dom";
+import { items } from "./ItemDummy";
 
 const MainContainer = styled.div`
     padding: 40px 158px;
@@ -43,8 +40,6 @@ const FilterButton = styled.button`
         background: #e8e8e8;
     }
 `;
-
-
 
 const VectorIcon = styled.img`
     width: 10px;
@@ -226,18 +221,6 @@ const filterOptions = {
 };
 
 export default function Main() {
-    const items = [
-        { id: 1, name: "아이앱 스튜디오 25 후드 라이트 그레이", price: "145,000원", sub: "리뷰 1,561", image: imageUrl1 },
-        { id: 2, name: "아이앱 스튜디오 25 후드 라이트 블루", price: "145,000원", sub: "리뷰 1,732", image: imageUrl2 },
-        { id: 3, name: "아디다스 블랙 져지 2016", price: "255,000원", sub: "리뷰 781", image: imageUrl3 },
-        { id: 4, name: "슈프림 후드집업 30 딥블루", price: "458,000원", sub: "리뷰 2,567", image: imageUrl4 },
-        { id: 5, name: "나이키 에어 그레이 하운드 25", price: "235,000원", sub: "리뷰 231", image: imageUrl5 },
-        { id: 6, name: "아이앱 스튜디오 25 후드 라이트 그레이", price: "199,000원", sub: "리뷰 980", image: imageUrl1 },
-        { id: 7, name: "아이앱 스튜디오 25 후드 라이트 블루", price: "210,000원", sub: "리뷰 640", image: imageUrl2 },
-        { id: 8, name: "아디다스 블랙 져지 2016", price: "175,000원", sub: "리뷰 312", image: imageUrl3 },
-        { id: 9, name: "슈프림 후드집업 30 딥블루", price: "480,000원", sub: "리뷰 1,102", image: imageUrl4 },
-        { id: 10, name: "나이키 에어 그레이 하운드 25", price: "260,000원", sub: "리뷰 540", image: imageUrl5 }
-    ];
 
     const [activeFilter, setActiveFilter] = useState(null);
     const [sortOpen, setSortOpen] = useState(false);
@@ -252,7 +235,9 @@ export default function Main() {
         setSelectedSort(option);
         setSortOpen(false);
     };
+        const navigate=useNavigate();
 
+    
     return (
         <MainContainer onClick={() => setSortOpen(false)}>
 
@@ -295,10 +280,10 @@ export default function Main() {
                 </SortRight>
             </FilterRow>
 
-
+ 
             <ProductGrid>
                 {items.map((item) => (
-                    <ProductCard key={item.id}>
+                    <ProductCard key={item.id} onClick={()=>navigate(`/item/${item.id}`)}>
                         <ProductImage src={item.image} alt={item.name} />
                         <ProductInfo>
                             <ProductName>{item.name}</ProductName>
