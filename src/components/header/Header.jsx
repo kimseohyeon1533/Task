@@ -1,59 +1,78 @@
 import styled from "styled-components";
-import logUrl from "../../assets/images/kream_image.png"
-import homeUrl from "../../assets/icons/home_icon.png"
-import {useLocation, useNavigate} from "react-router-dom";
+import logoUrl from "../../assets/images/kream_image.png";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
+import { getProducts } from "../../utils/productStore";
+
+const HeaderContainer = styled.header`
+  width: min(1280px, calc(100vw - 48px));
+  margin: 0 auto;
+  padding: 42px 112px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+`;
 
 const LogoImage = styled.img`
-    width: 166px;
-    height: 141px;
-`;
-
-const HomeIcon = styled.img`
-    width: 61px;
-    height: 24px;
-`;
-
-const HeaderContainer = styled.div`
-    padding-right: 160px;
-    padding-left: 160px;
-    display: flex;
-    justify-content: space-between;
+  width: 125px;
+  height: auto;
+  cursor: pointer;
 `;
 
 const HeaderRight = styled.div`
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end;
-    gap: 36px;
-    padding-top: 9px;
-    padding-bottom: 58px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 26px;
 `;
 
-const Button = styled.div`
-    color: #6c6c6c;
-    font-size: 13px;
-    font-family: Pretendard;
-    font-weight: 400;
+const Nav = styled.nav`
+  display: flex;
+  gap: 28px;
+  align-items: center;
 `;
 
-export default function Header(){
+const NavButton = styled.button`
+  border: none;
+  background: transparent;
+  padding: 0;
+  color: ${({ $active }) => ($active ? "#111" : "#6c6c6c")};
+  font-size: 13px;
+  font-weight: ${({ $active }) => ($active ? 700 : 400)};
+  cursor: pointer;
 
-    const {pathname} = useLocation(); //현재 페이지 경로 불러오기
-    const navigate = useNavigate();
-    const buttonName = "상품등록";
+  &:hover {
+    color: #111;
+  }
+`;
 
-    return(
-        <div>
-            <HeaderContainer>
-            <LogoImage src={logUrl}/>
-            <HeaderRight>
-            {pathname === "/" && (
-                <Button onClick={()=>navigate("/add")}>{buttonName}</Button>
-            )}
-            <HomeIcon src={homeUrl}/>
-            </HeaderRight>
-            </HeaderContainer>
+const HomeButton = styled.button`
+  border: none;
+  background: transparent;
+  color: #222;
+  font-size: 21px;
+  font-weight: 400;
+  cursor: pointer;
+`;
 
-        </div>
-    );
+export default function Header() {
+  const { pathname } = useLocation();
+  const { id } = useParams();
+  const navigate = useNavigate();
+
+  const fallbackId = getProducts()[0]?.id ?? 1;
+  const currentId = id ?? fallbackId;
+
+  return (
+    <HeaderContainer>
+      <LogoImage src={logoUrl} alt="KREAM" onClick={() => navigate("/")} />
+      <HeaderRight>
+        <Nav>
+          <NavButton $active={pathname === "/add"} onClick={() => navigate("/add")}>상품등록</NavButton>
+          <NavButton $active={pathname.startsWith("/delete")} onClick={() => navigate(`/delete/${currentId}`)}>상품삭제</NavButton>
+          <NavButton $active={pathname.startsWith("/edit")} onClick={() => navigate(`/edit/${currentId}`)}>상품수정</NavButton>
+        </Nav>
+        <HomeButton onClick={() => navigate("/")}>HOME</HomeButton>
+      </HeaderRight>
+    </HeaderContainer>
+  );
 }

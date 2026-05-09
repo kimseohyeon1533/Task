@@ -1,9 +1,9 @@
-import { useState } from "react";
 import styled from "styled-components";
-import sortIcon from "../../assets/icons/icon_2.png";
+import sortIcon from "../../assets/icons/Icon_2.png";
 import vectorIcon from "../../assets/icons/Vector.png"; 
 import {useNavigate} from "react-router-dom";
-import { items } from "./ItemDummy";
+import { useEffect, useState } from "react";
+import { getProducts } from "../../utils/productStore";
 
 const MainContainer = styled.div`
     padding: 40px 158px;
@@ -103,12 +103,19 @@ const ProductCard = styled.div`
     border-radius: 12px;
     overflow: hidden;
     background: #fff;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+
+    &:hover {
+        transform: translateY(-4px);
+    }
 `;
 
 const ProductImage = styled.img`
     width: 100%;
     height: 237px;
-    object-fit: cover;
+    object-fit: contain;
+    background: #f7f7f7;
 `;
 
 const ProductInfo = styled.div`
@@ -225,6 +232,11 @@ export default function Main() {
     const [activeFilter, setActiveFilter] = useState(null);
     const [sortOpen, setSortOpen] = useState(false);
     const [selectedSort, setSelectedSort] = useState("기본 정렬순");
+    const [items, setItems] = useState([]);
+
+    useEffect(() => {
+        setItems(getProducts());
+    }, []);
 
     const openModal = (filterName) => setActiveFilter(filterName);
     const closeModal = () => setActiveFilter(null);
@@ -288,7 +300,7 @@ export default function Main() {
                         <ProductInfo>
                             <ProductName>{item.name}</ProductName>
                             <ProductPrice>{item.price}</ProductPrice>
-                            <ProductSub>{item.sub}</ProductSub>
+                            <ProductSub>리뷰 {item.review}</ProductSub>
                         </ProductInfo>
                     </ProductCard>
                 ))}
